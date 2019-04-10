@@ -1,19 +1,38 @@
----
-title: "Minimal Enclosing Ball Problem"
----
-## Minimal Enclosing Ball Problem
 
-Using a Jekyll theme, but I think we can pull python code into this, right? Thanks, markdown!
+# Trying Jupyter Notebook
 
-```{python eval=TRUE}
-print(hello world)
+Here I'm running code:
+
+
+```python
+print('hello world!')
 ```
-This should have displayed "hello world" as well as the code.
 
-Let's also check how math looks:
+    hello world!
 
-```{tex}
-\begin{align}
-\mathbb{A}&=\mathcal{B}+C^d_E
-\end{align}
+
+Incorporating TeX doesn't seem automatic
+
+LaTeX: $\mathbb{A}=\mathcal{B}+C^d_E$
+
+
+
+
+```python
+
+```
+
+
+```python
+
+```
+
+
+```python
+
+```
+
+
+```python
+
 ```
