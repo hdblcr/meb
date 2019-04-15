@@ -6,15 +6,21 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <link rel="stylesheet" href="./public_html/overall_style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
           google.charts.load('current', {'packages':['corechart']});
           google.charts.setOnLoadCallback(drawChart);
-          google.charts.setOnLoadCallback(drawChart2);
           
           function randomPoint() {
               return (Math.random() * 81) + 10;
           };
+          
+          function sleep(ms) {
+              return new Promise(resolve => setTimeout(resolve, ms));
+          }
 
           function drawChart() {
             var data = google.visualization.arrayToDataTable([
@@ -39,12 +45,16 @@ and open the template in the editor.
             chart.draw(data, options);
           }
           
+          function startDraw() {
+              drawChart2(true);
+              setTimeout(endDraw, 120000);
+          }
           
-          function drawChart2() {
+          function drawChart2(continueExecution) {
             var data = new google.visualization.DataTable();
             data.addColumn('number');
             data.addColumn('number');
-            
+                        
             var options = {
               legend: 'none',
               colors: ['#087037'],
@@ -64,18 +74,42 @@ and open the template in the editor.
             google.visualization.events.addOneTimeListener(chart, 'ready', addPoint);
 
             // Control all other animations by listening to the 'animationfinish' event.
-            google.visualization.events.addListener(chart, 'animationfinish', addPoint);
+            google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
             
+            // Pause with click
+            google.visualization.events.addListener(chart, 'click', pause);
+                              
             chart.draw(data, options);
+        
             
             function addPoint() {
-              var x = randomPoint();
-              var y = randomPoint();
-              data.addRow([x, y]);
-              chart.draw(data, options);
-            };
-          };
+                if(continueExecution) {
+                    var x = randomPoint();
+                    var y = randomPoint();
+                    data.addRow([x, y]);
+                    chart.draw(data, options);
+                    google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
+                } else {
+                    chart.draw(data,options);
+                    google.visualization.events.addOneTimeListener(chart, 'click', function(){
+                        continueExecution = true;
+                        addPoint();
+                    });
+                }
+            }
+            function pause() {
+                console.log('ermagerd i\'m in pause');
+                if (continueExecution) {
+                    continueExecution = false;
+                } else {
+                    continueExecution = true;
+                }
+            }
+        }
           
+        function endDraw() {
+            drawChart2(false);
+        }
           
         </script>
 
@@ -88,13 +122,18 @@ and open the template in the editor.
         <div>
           <a href="exact.html"><button>I don't care about approximation</button></a>
         </div>
+        <div><p>Try using the "click" data event to progress the screen. We 
+                could add a single new listener in each function that calls the 
+                next one on click. It might also make sense to have a "master" 
+                function with all the data for the algorithm inside, and then 
+                nested sub-functions for each new "screen."</p></div>
         <div><p>Let's start with a bunch of points:</p></div>
         
         <div id="buncha_points" style="width: 900px; height: 500px;"></div>
         
         <div><p>Let's try adding points with a delay:</p></div>
-        <!-- Start Button -->
-        <!-- End  Button -->
+        <button onclick="startDraw()">Click To Start</button>
+        <button onclick="endDraw()">Click To Clear</button>
         <div id="buncha_points_delay" style="width: 900px; height: 500px;"></div>
     </body>
 </html>
