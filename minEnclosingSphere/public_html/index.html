@@ -71,16 +71,15 @@ and open the template in the editor.
             var chart = new google.visualization.ScatterChart(document.getElementById('buncha_points_delay'));
 
             // Start the animation by listening to the first 'ready' event.
-            google.visualization.events.addOneTimeListener(chart, 'ready', addPoint);
-
-            // Control all other animations by listening to the 'animationfinish' event.
-            google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
+            google.visualization.events.addOneTimeListener(chart, 'ready', addPoint);        
             
             // Pause with click
             google.visualization.events.addListener(chart, 'click', pause);
+            
+            // Control all other animations by listening to the 'animationfinish' event.
+            google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
                               
-            chart.draw(data, options);
-        
+            chart.draw(data, options);        
             
             function addPoint() {
                 if(continueExecution) {
@@ -90,8 +89,8 @@ and open the template in the editor.
                     chart.draw(data, options);
                     google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
                 } else {
-                    chart.draw(data,options);
-                    google.visualization.events.addOneTimeListener(chart, 'click', function(){
+                    google.visualization.events.addListener(chart, 'click', function(){
+                        console.log("click!");
                         continueExecution = true;
                         addPoint();
                     });
