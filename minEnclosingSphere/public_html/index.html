@@ -17,10 +17,6 @@ and open the template in the editor.
           function randomPoint() {
               return (Math.random() * 81) + 10;
           };
-          
-          function sleep(ms) {
-              return new Promise(resolve => setTimeout(resolve, ms));
-          }
 
           function drawChart() {
             var data = google.visualization.arrayToDataTable([
@@ -43,17 +39,13 @@ and open the template in the editor.
             var chart = new google.visualization.ScatterChart(document.getElementById('buncha_points'));
 
             chart.draw(data, options);
-          }
+          }          
           
-          function startDraw() {
-              drawChart2(true);
-              setTimeout(endDraw, 120000);
-          }
-          
-          function drawChart2(continueExecution) {
+          function drawChart2() {
             var data = new google.visualization.DataTable();
             data.addColumn('number');
             data.addColumn('number');
+//            data.addRow([randomPoint(), randomPoint()]);
                         
             var options = {
               legend: 'none',
@@ -71,44 +63,70 @@ and open the template in the editor.
             var chart = new google.visualization.ScatterChart(document.getElementById('buncha_points_delay'));
 
             // Start the animation by listening to the first 'ready' event.
-            google.visualization.events.addOneTimeListener(chart, 'ready', addPoint);        
+            google.visualization.events.addOneTimeListener(chart, 'ready', addPoint);    
+            chart.draw(data, options);
             
             // Pause with click
-            google.visualization.events.addListener(chart, 'click', pause);
+//            google.visualization.events.addListener(chart, 'click', pause);
             
-            // Control all other animations by listening to the 'animationfinish' event.
-            google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
-                              
-            chart.draw(data, options);        
+//             Control all other animations by listening to the 'animationfinish' event.
+//            google.visualization.events.addListener(chart, 'animationfinish', addPoint);
+            
+            google.visualization.events.addListener(chart, 'click', addPoint);
             
             function addPoint() {
-                if(continueExecution) {
-                    var x = randomPoint();
-                    var y = randomPoint();
-                    data.addRow([x, y]);
-                    chart.draw(data, options);
-                    google.visualization.events.addOneTimeListener(chart, 'animationfinish', addPoint);
-                } else {
-                    google.visualization.events.addListener(chart, 'click', function(){
-                        console.log("click!");
-                        continueExecution = true;
-                        addPoint();
-                    });
-                }
+              data.addRow([randomPoint(), randomPoint()]);
+              chart.draw(data, options);
             }
-            function pause() {
-                console.log('ermagerd i\'m in pause');
-                if (continueExecution) {
-                    continueExecution = false;
-                } else {
-                    continueExecution = true;
-                }
-            }
-        }
+          }          
           
-        function endDraw() {
-            drawChart2(false);
-        }
+          function startDraw() {
+              drawChart3();
+              setTimeout(endDraw, 120000);
+          }
+
+          function endDraw() {
+              drawChart3();
+          }
+          
+          function handler(go) {
+              if (go) {
+                  
+              }
+          }
+          
+          function drawChart3() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number');
+            data.addColumn('number');
+                        
+            var options = {
+              legend: 'none',
+              colors: ['#087037'],
+              pointShape: 'square',
+              pointSize: 18,
+              animation: {
+                duration: 200,
+                easing: 'linear'
+              },
+              hAxis: {title: 'X', minValue: 0, maxValue: 100},
+              vAxis: {title: 'Y', minValue: 0, maxValue: 100}
+            };
+            
+            var chart = new google.visualization.ScatterChart(document.getElementById('auto_till_stop'));
+
+            // Start the animation by listening to the first 'ready' event.
+            google.visualization.events.addOneTimeListener(chart, 'ready', addPoint);    
+            chart.draw(data, options);
+            
+            // this is the part the handler should do
+            google.visualization.events.addListener(chart, 'click', addPoint);
+            
+            function addPoint() {
+              data.addRow([randomPoint(), randomPoint()]);
+              chart.draw(data, options);
+            }
+          }
           
         </script>
 
@@ -126,13 +144,21 @@ and open the template in the editor.
                 next one on click. It might also make sense to have a "master" 
                 function with all the data for the algorithm inside, and then 
                 nested sub-functions for each new "screen."</p></div>
-        <div><p>Let's start with a bunch of points:</p></div>
+      
+        <div><p>Let's try adding points by clicking on the chart:</p></div>
+        <button onclick="drawChart2()">Draw Chart</button>
+        <div id="buncha_points_delay" style="width: 500px; height: 500px;"></div>
         
-        <div id="buncha_points" style="width: 900px; height: 500px;"></div>
         
-        <div><p>Let's try adding points with a delay:</p></div>
-        <button onclick="startDraw()">Click To Start</button>
-        <button onclick="endDraw()">Click To Clear</button>
-        <div id="buncha_points_delay" style="width: 900px; height: 500px;"></div>
+<!--        
+        <div><p>Let's try adding points one by one until we stop them:</p></div>
+        <button onclick="keepgoing = setInterval(drawChart3, 1000)">Draw Chart</button>
+        <div id="auto_till_stop" style="width: 500px; height: 500px;"></div>
+        -->
+        
+        <div><p>Let's try some SVG.</p></div>
+        <svg id='svg1' width='500' height='500'>
+            <circle cx='250' cy='250' r='200' stroke="green" stroke-width="4" fill='white'/>
+        </svg>
     </body>
 </html>
