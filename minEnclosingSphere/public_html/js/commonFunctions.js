@@ -16,7 +16,7 @@ function midpoint(point1, point2) {
 function circle_two_points(point1, point2) {
     var center = midpoint(point1, point2);
     var radius = Math.sqrt(distance_between_points_squared(point1, point2)) / 2;
-    var circle = new Circle(center, radius)
+    var circle = new Circle(center, radius);
     return circle;
 }
 
@@ -29,9 +29,9 @@ function circle_three_points(point1, point2, point3) {
                 (math.pow(point2.x,2) + math.pow(point2.y,2))*(point1.x - point3.x) + 
                 (math.pow(point3.x,2) + math.pow(point3.y,2))*(point2.x - point1.x)) /
                 (2 * (point1.x *(point2.y - point3.y) + point2.x * (point3.y - point1.y) + point3.x * (point1.y - point2.y)));
-    var center = new Point(center_x, center_y)
+    var center = new Point(center_x, center_y);
     var radius = math.sqrt(distance_between_points_squared(center, point1));
-    var return_circle = new Circle(center, radius)
+    var return_circle = new Circle(center, radius);
     return return_circle;
 }
 
