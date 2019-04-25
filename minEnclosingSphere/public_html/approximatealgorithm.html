@@ -9,13 +9,24 @@ and open the template in the editor.
         <title>Approximate Algorithm</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <script defer src="./js/commonFunctions.js"></script></script> -->
-        <script asyn src="./js/commonObjects.js"></script>
-        <script defer src="./js/commonFunctions.js"></script>
-        <script defer src="./js/approxAlg.js"></script>
+        <script src="./js/commonObjects.js"></script>
+        <script src="./js/commonFunctions.js"></script>
+        <script src="./js/approxAlg.js"></script>
     </head>
     <body>
         <div><h1>Approximate Algorithm</h1></div>
         <div><p>This algorithm is a quick approximation for the Minimum Enclosing Sphere problem.</p></div>
+        <a href="exact.html"><button>I changed my mind, show me an exact algorithm.</button></a>
+        <a href="index.html"><button>Take me back to the fun screen</button></a>
+        <p></p>
+        <script type="text/javascript">
+            var a = new Point(3,7);
+            var b = new Point(5,4);
+            var c = new Point(1,2);
+            var d = new Point(2,2);
+            var meb = new ApproxMinBall([a,b,c,d]);
+            var sol = meb.solve();
+            document.write((sol.toString()));
+        </script>
     </body>
 </html>

@@ -28,7 +28,7 @@ class Circle {
         return "C(" + this.c.toString() + "," + this.r.toString() + ")";
     };
     contains(p) {
-        return distance_between_points_squared(c, p) <= Math.pow(radius, 2);
+        return (distance_between_points_squared(this.c, p) <= Math.pow(this.r, 2));
     };
 }
 
@@ -50,4 +50,24 @@ class Line {
     toString() {
         return "LineSeg(" + this.start.toString() + "," + this.end.toString() + ")";
     };
+    len() {
+        return Math.sqrt(distance_between_points_squared(this.start, this.end));
+    }
+    midpoint() {
+        return midpoint(this.start, this.end);
+    };
+    // concatenate two lines
+    append(other) {
+        return new Line(this.start, other.end);
+    }
+    // extend line to a further point
+    extendTo(p) {
+        return new Line(this.start, p);
+    }
+    // extend line by some length k -- get unit directional vector and scale it up
+    extendBy(k) {
+        var sf = this.len() + k;  // new length = scaling factor
+        var p = new Point(this.start.x + (this.end.x - this.start.x) * (sf / this.len()), this.start.y + (this.end.y - this.start.y) * (sf / this.len()));
+        return new Line(this.start, p);
+    }
 }

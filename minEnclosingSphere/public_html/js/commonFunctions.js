@@ -3,8 +3,8 @@ function distance_between_points_squared(point1, point2) {
 }
 
 function scalar_multiply(line, scalar) {
-    var new_endpoint = new Point(scalar * line.endpoint.x, scalar * line.endpoint.y);
-    var new_line = new Line(startpoint, new_endpoint);
+    var new_endpoint = new Point(scalar * line.end.x, scalar * line.end.y);
+    var new_line = new Line(line.start, new_endpoint);
     return new_line;
 }
 
