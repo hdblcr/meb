@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="./public_html/overall_style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+        <script type="application/javascript" src="js/commonObjects.js"></script>
+        <script type="application/javascript" src="js/commonFunctions.js"></script>
+        <script type="application/javascript" src="js/drawingFunctions.js"></script>
+        <script type="application/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+        </script>
+
+        <title>Minimum Enclosing Sphere Problem</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Minimum Enclosing Sphere Problem</h1>
+        
+        <div><p>Intro here. You should care about this problem. We are going to 
+                look at both correctness and time complexity.</p></div>
+        
+        <div>
+          <a href="approximatealgorithm.html"><button>Approximation Algorithm</button></a>
+          <a href="exact.html"><button>I don't care about approximation</button></a>
+        </div>
+        <div><p>Try using the "click" data event to progress the screen. We 
+                could add a single new listener in each function that calls the 
+                next one on click. It might also make sense to have a "master" 
+                function with all the data for the algorithm inside, and then 
+                nested sub-functions for each new "screen."</p></div>
+        
+        <div><p>Let's try some SVG.</p></div>
+        <div id='svg1' onclick="svg1()">
+            <svg width='500' height='500'>
+                <circle cx='250' cy='250' r='200' stroke="green" stroke-width="4" fill='white'/>
+            </svg>
+        </div>
+    </body>
+</html>
