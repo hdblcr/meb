@@ -1,57 +1,46 @@
 // Approx. alg.
 
 class ApproxMinBall {
-    constructor(pts) {
-        this.pts = pts;
-        this.index = 1;
-        this.ball = new Circle(pts[0], 0);
+    constructor() {
+        this.pts = [];
+        this.index = 0;
+        this.ball = null;
         this.line = null;
-        // if (pts.length <= 1)
-        //     this.done = 1;
-        // else
-        //     this.done = 0;
         this.drawQueue = [];
     }
     addPoint(p) {
         this.pts.push(p);
     };
-    // next() {
-    //     var p = this.pts[this.index];
-    //     if (this.ball.contains(p))
-    //         return;
-    //     else            
-    //         return;
-    // };
     solve() {
-        if (this.done) { return;}
-        document.write("list of points: " + this.pts.toString() + "<br>");
-        while (this.index < this.pts.length) {
+        if (this.pts.length == 0) return;
+        if (this.pts.length == 1) {
             var p = this.pts[this.index];
+            this.ball = new Circle(p, 0);
             this.index++;
-            if (this.ball.contains(p)) {
-                continue;
-            }
-            else {
-                // find line k from new point p to ball center
-                this.line = new Line(p, this.ball.c);
-                // extend line to by radius r to hit point q
-                this.line = this.line.extendBy(this.ball.r);
-
-                // TODO draw line here
-
-                // find midpoint c of line pq
-                var newCenter = this.line.midpoint();
-                this.ball = new Circle(newCenter, .5 * this.line.len());
-                // TODO draw circle here
+        }
+        else {
+            while (this.index < this.pts.length) {
+                var p = this.pts[this.index];
+                this.index++;
+                if (this.ball.contains(p)) {
+                    continue;
+                }
+                else {
+                    // find line k from new point p to ball center
+                    this.line = new Line(p, this.ball.c);
+                    // extend line by radius r to hit point q
+                    this.line = this.line.extendBy(this.ball.r);
+                    // find midpoint c of line pq
+                    var newCenter = this.line.midpoint();
+                    this.ball = new Circle(newCenter, .5 * this.line.len());
+                }   
             }
         }
-        document.write("done! <br>");
-        this.done = 1;
+        drawObject(this.ball);
         return this.ball;
     };
     drawNext() {
         if (this.drawQueue.length > 0) {
-            // type check here
             var x = this.drawQueue.shift();
             drawObject(x);
         }
@@ -60,9 +49,27 @@ class ApproxMinBall {
         }
     };
     nextPoint() {
-        if (this.index < this.pts.length) {
-            // inc alg
+        if (this.pts.length == 0) return;
+        if (this.index >= this.pts.length) return;
+        var p = this.pts[this.index];
+        this.drawQueue.push(p);
+        if (this.pts.length == 1) {
+            this.ball = new Circle(p, 0);
         }
-        
+        else if ( !(this.ball.contains(p)) ) {
+            // find line k from new point p to ball center
+            this.line = new Line(p, this.ball.c);
+            // extend line by radius r to hit point q
+            this.line = this.line.extendBy(this.ball.r);
+            // add full line to draw queue
+            this.drawQueue.push(this.line);
+            // find midpoint c of line pq
+            var newCenter = this.line.midpoint();
+            this.ball = new Circle(newCenter, .5 * this.line.len());
+            // add new circle to draw queue
+            this.drawQueue.push(this.ball);
+        }
+        this.index++;
+        this.drawNext();
     };
 }
