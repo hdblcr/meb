@@ -25,7 +25,8 @@ class Circle {
         this.r = radius;
     }
     toString() {
-        return "C(" + this.c.toString() + "," + this.r.toString() + ")";
+        //return "C(" + this.c.toString() + "," + this.r.toString() + ")";
+        return "C(" + this.c.toString() + "," + parseFloat(this.r).toFixed(2) + ")";
     };
     contains(p) {
         return (distance_between_points_squared(this.c, p) <= Math.pow(this.r, 2));
@@ -38,7 +39,8 @@ class Point {
         this.y = y;
     }
     toString() {
-        return "(" + this.x.toString() + "," + this.y.toString() + ")";
+        //return "(" + this.x.toString() + "," + this.y.toString() + ")";
+        return "(" + parseFloat(this.x).toFixed(2) + "," + parseFloat(this.y).toFixed(2) + ")";
     };
 }
 
