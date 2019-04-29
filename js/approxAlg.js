@@ -6,18 +6,22 @@ class ApproxMinBall {
         this.index = 1;
         this.ball = new Circle(pts[0], 0);
         this.line = null;
-        if (pts.length <= 1)
-            this.done = 1;
-        else
-            this.done = 0;
+        // if (pts.length <= 1)
+        //     this.done = 1;
+        // else
+        //     this.done = 0;
+        this.drawQueue = [];
     }
-    next() {
-        var p = this.pts[this.index];
-        if (this.ball.contains(p))
-            return;
-        else            
-            return;
+    addPoint(p) {
+        this.pts.push(p);
     };
+    // next() {
+    //     var p = this.pts[this.index];
+    //     if (this.ball.contains(p))
+    //         return;
+    //     else            
+    //         return;
+    // };
     solve() {
         if (this.done) { return;}
         document.write("list of points: " + this.pts.toString() + "<br>");
@@ -44,5 +48,21 @@ class ApproxMinBall {
         document.write("done! <br>");
         this.done = 1;
         return this.ball;
+    };
+    drawNext() {
+        if (this.drawQueue.length > 0) {
+            // type check here
+            var x = this.drawQueue.shift();
+            drawObject(x);
+        }
+        else {
+            this.nextPoint();
+        }
+    };
+    nextPoint() {
+        if (this.index < this.pts.length) {
+            // inc alg
+        }
+        
     };
 }

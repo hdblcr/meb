@@ -24,6 +24,7 @@ class Circle {
         this.c = center;
         this.r = radius;
         this.active = 1;
+        this.type = "circle";
     }
     toString() {
         //return "C(" + this.c.toString() + "," + this.r.toString() + ")";
@@ -47,6 +48,7 @@ class Point {
         this.x = x;
         this.y = y;
         this.active = 1;
+        this.type = "point";
     }
     toString() {
         //return "(" + this.x.toString() + "," + this.y.toString() + ")";
@@ -67,6 +69,7 @@ class Line {
         this.start = startPoint;
         this.end = endPoint;
         this.active = 1;
+        this.type = "line";
     }
     toString() {
         return "LineSeg(" + this.start.toString() + "," + this.end.toString() + ")";
