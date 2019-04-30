@@ -13,13 +13,13 @@ class ApproxMinBall {
     };
     solve() {
         if (this.pts.length == 0) return;
-        if (this.pts.length == 1) {
-            var p = this.pts[this.index];
-            this.ball = new Circle(p, 0);
-            this.index++;
-        }
-        else {
-            while (this.index < this.pts.length) {
+        while (this.index < this.pts.length) {
+            if (this.index == 0) {
+                var p = this.pts[this.index];
+                this.ball = new Circle(p, 0);
+                this.index++;
+            }
+            else {
                 var p = this.pts[this.index];
                 this.index++;
                 if (this.ball.contains(p)) {
@@ -36,7 +36,7 @@ class ApproxMinBall {
                 }   
             }
         }
-        drawObject(this.ball);
+        // drawObject(this.ball);
         return this.ball;
     };
     drawNext() {
@@ -53,7 +53,7 @@ class ApproxMinBall {
         if (this.index >= this.pts.length) return;
         var p = this.pts[this.index];
         this.drawQueue.push(p);
-        if (this.pts.length == 1) {
+        if (this.index == 0) {
             this.ball = new Circle(p, 0);
         }
         else if ( !(this.ball.contains(p)) ) {
