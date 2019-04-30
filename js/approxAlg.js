@@ -53,7 +53,7 @@ class ApproxMinBall {
         if (this.index >= this.pts.length) return;
         var p = this.pts[this.index];
         this.drawQueue.push(p);
-        if (this.pts.length == 1) {
+        if (this.index == 0) {
             this.ball = new Circle(p, 0);
         }
         else if ( !(this.ball.contains(p)) ) {
