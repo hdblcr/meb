@@ -6,7 +6,7 @@
 
 var center = new Point(50, 50);
 var circle = new Circle(center, 30);
-drawObject(circle);
+drawCircle(circle);
 
           function randomPoint() {
             var newval = Math.random() * 500;
