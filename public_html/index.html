@@ -32,9 +32,10 @@
       <script type="text/javascript">
       var centery = new Point(50, 50);
       var edgey = new Point(750,250);
-      var circley = new Circle(centery, 30);
+      var circley = new Circle(centery, 5);
       var liney = new Line(centery, edgey);
-      draw([centery, edgey], [liney], [circley]);
+      draw([edgey], [liney], [circley]);
+      draw([centery], [], []);
       </script>
     </body>
 </html>
