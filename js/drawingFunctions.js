@@ -7,9 +7,10 @@
 
 console.log("Hello World");
 // alert("Hello world alert");
+var w = window.innerWidth * 0.9,
+    h = (window.innerHeight - 200 ),
+    margin = { top: 40, right: 0, bottom: 20, left: 0 };
 
-var w = 800;
-var h = 800;
 var ptSize = 4;
 
 var plot = d3.select("body")
