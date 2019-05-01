@@ -29,20 +29,14 @@ and open the template in the editor.
         <script type="application/javascript" src="../js/commonFunctions.js"></script>
         <script type="application/javascript" src="../js/commonObjects.js"></script>
         <script type="text/javascript">
+          var meb = new ApproxMinBall();
           d3.select("svg")
             .on("click", function() {
               coord = d3.mouse(this)
               pt = new Point(coord[0], coord[1]);
-              addPoint(pt); // This is the approxAlg starting point
+              meb.addPoint(pt); // This is the approxAlg starting point
             });
-            var a = new Point(3,7);
-            var b = new Point(5,4);
-            var c = new Point(1,2);
-            var d = new Point(2,2);
-            var meb = new ApproxMinBall([a,b,c,d]);
-            var sol = meb.solve();
-            document.write((sol.toString()));
         </script>
-        <input id="approxNext" type="button" value="Next" onclick="drawNext();" />
+        <input id="approxNext" type="button" value="Next" onclick="meb.nextPoint();" />
     </body>
 </html>
