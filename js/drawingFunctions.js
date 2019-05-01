@@ -78,6 +78,10 @@ function drawCircles(circles) {
     });
 }
 
+function drawObject(allObjs) {
+  draw(allObjs[0], allObjs[1], allObjs[2]);
+}
+
 function draw(points, lines, circles) {
   // draw the things
   clearScreen();

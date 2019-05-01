@@ -35,6 +35,13 @@
       var circley = new Circle(centery, 30);
       var liney = new Line(centery, edgey);
       draw([centery, edgey], [liney], [circley]);
+      d3.select("svg")
+        .on("click", function() {
+          coord = d3.mouse(this)
+          console.log(coord)
+          pt = new Point(coord[0], coord[1]);
+          draw([pt], [], []); // this is the exact alg starting point
+        });
       </script>
     </body>
 </html>
