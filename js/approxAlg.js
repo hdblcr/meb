@@ -74,8 +74,9 @@ class ApproxMinBall {
     };
     drawNext() {
         if (this.things2draw) {
-            draw(this.pts2draw, this.lines2draw, this.circles2draw);
             this.deactivateAll();
+            draw(this.pts2draw, this.lines2draw, this.circles2draw);
+            
         }
         else {
             this.nextPoint();
