@@ -15,10 +15,19 @@
         <h1>Exact Algorithm with Expected Linear Runtime</h1>
         <a href="approximatealgorithm.html"><button>I changed my mind, show me approximation</button></a>
         <a href="index.html"><button>Take me back to the fun screen</button></a>
+        <div><p></p></div>
 
+        <script src="https://d3js.org/d3.v5.min.js"></script>
         <script type="text/javascript" src="../js/commonFunctions.js"></script>
         <script type="text/javascript" src="../js/commonObjects.js"></script>
         <script type="text/javascript" src="../js/drawingFunctions.js"></script>
         <script type="text/javascript" src="../js/exactAlgorithm.js"></script>
+        <script type="text/javascript">
+          d3.select("svg")
+            .on("click", function() {
+              pt = new Point(d3.mouse(this));
+              add_point(pt); // this is the exact alg starting point
+            });
+        </script>
     </body>
 </html>
