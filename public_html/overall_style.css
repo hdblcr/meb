@@ -8,43 +8,44 @@ and open the template in the editor.
     Author     : sarah
 */
 :root {
-  --body-background: #ffffff;
-  --svg-background: #f1f2f6;
+  --body-background: #0a3d62;
+  --svg-background: #82ccdd;
   --button-background: ;
   --button-outline: ;
   --button-hover: ;
   --button-hover-shadow: ;
-  --text-color: #2f3542;
+  --text-color: #82ccdd;
 }
 
 svg .activePoint{
-  fill: #ff6348;
+  fill: #0c2461;
 }
 
 svg .inactivePoint{
-  fill: #ff7f50;
+  fill: #6a89cc;
 }
 
 svg .activeCircle{
-  stroke: #ff4757;
+  stroke: #b71540;
   fill: none;
   stroke-width: 2;
 }
 
 svg .inactiveCircle{
-  stroke: #ff6b81;
+  stroke: #e55039;
   fill: none;
-  stroke-width: 1;
+  stroke-width: 2;
   stroke-dasharray: 10,3;
 }
 
 svg .activeLine{
-  stroke: #ffa502;
+  stroke: #e58e26;
   stroke-width: 2;
 }
 
 svg .inactiveLine{
-  stroke: #eccc68;
+  stroke: #fad390;
+  stroke-width: 2;
   stroke-dasharray: 10,3;
 }
 

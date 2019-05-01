@@ -25,7 +25,8 @@
         <script type="text/javascript">
           d3.select("svg")
             .on("click", function() {
-              pt = new Point(d3.mouse(this));
+              coord = d3.mouse(this)
+              pt = new Point(coord[0], coord[1]);
               add_point(pt); // this is the exact alg starting point
             });
         </script>
