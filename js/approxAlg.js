@@ -11,15 +11,40 @@ class ApproxMinBall {
         this.circles2draw = [];
         this.things2draw = false;
     }
+    reset() {
+        this.pts = [];
+        this.index = 0;
+        this.ball = null;
+        this.line = null;
+        this.pts2draw = [];
+        this.lines2draw = [];
+        this.circles2draw = [];
+        this.things2draw = false;
+    };
     addPoint(p) {
         this.pts.push(p);
+        this.pts2draw.push(p);
+        this.things2draw = true;
+        this.drawNext();
     };
     clearQueues() {
         this.pts2draw = [];
         this.lines2draw = [];
         this.circles2draw = [];
         this.things2draw = false;
-    }
+    };
+    deactivateQueue(Q) {
+        for (var i = 0; i < Q.length; i++) {
+            if (Q[i] != this.ball) {
+                Q[i].deactivate();
+            }
+        }
+    };
+    deactivateAll() {
+        this.deactivateQueue(this.pts2draw);
+        this.deactivateQueue(this.lines2draw);
+        this.deactivateQueue(this.circles2draw);
+    };
     solve() {
         if (this.pts.length == 0) {return;}
         while (this.index < this.pts.length) {
@@ -50,7 +75,7 @@ class ApproxMinBall {
     drawNext() {
         if (this.things2draw) {
             draw(this.pts2draw, this.lines2draw, this.circles2draw);
-            this.clearQueues();
+            this.deactivateAll();
         }
         else {
             this.nextPoint();
