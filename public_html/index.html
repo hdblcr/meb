@@ -14,47 +14,21 @@
     <body>
         <h1>Minimum Enclosing Sphere Problem</h1>
         <div>
-          <a href="approximatealgorithm.html"><button>Approximation Algorithm</button></a>
-          <a href="exact.html"><button>I don't care about approximation</button></a>
+          <p>
+            The Minimum Enclosing Sphere problem describes trying to find a new
+            point that minimizes the maximum distance to every other point.
+            In real life, this can be compared to a corporation trying to place
+            its new headquarters such that it is as close as possible to
+            all of its branch locations. The centerpoint plus the distance to
+            the furthest point(s) creates a circle in 2 dimensions or a sphere
+            in greater than two dimensions. Another way to think of this problem
+            is that the circle created is as small as possible while still
+            encompassing every point in the set.
+          </p>
         </div>
-        <div><p>Try using the "click" data event to progress the screen. We
-                could add a single new listener in each function that calls the
-                next one on click. It might also make sense to have a "master"
-                function with all the data for the algorithm inside, and then
-                nested sub-functions for each new "screen."</p></div>
-
-      <div><p>Let's try some SVG.</p>
-      <p>Color scheme <a href="https://flatuicolors.com/palette/fr">here</a>.</p></div>
-      <script src="https://d3js.org/d3.v5.min.js"></script>
-      <script type="text/javascript" src="../js/drawingFunctions.js"></script>
-      <script type="application/javascript" src="../js/commonFunctions.js"></script>
-      <script type="application/javascript" src="../js/commonObjects.js"></script>
-      <script type="text/javascript">
-        var centery = new Point(50, 50);
-        var edgey = new Point(750,250);
-        var pointy = new Point(500, 100);
-        var points = [centery, edgey, pointy];
-        var circley = new Circle(centery, 30);
-        var circlez = new Circle(edgey, 45);
-        circlez.deactivate();
-        var liney = new Line(centery, edgey);
-        var linez = new Line(centery, pointy);
-        linez.deactivate();
-        var circles = [circley, circlez];
-        var liness = [liney, linez];
-
-        draw(points, liness, circles);
-        d3.select("svg")
-          .on("click", function() {
-            coord = d3.mouse(this)
-            console.log(coord)
-            pt = new Point(coord[0], coord[1]);
-            for (i = 0; i < points.length; i++) {
-              points[i].deactivate();
-            }
-            points.push(pt)
-            draw(points, [], []); // draw the dot
-          });
-      </script>
+        <div>
+          <a href="approximatealgorithm.html"><button>Approximation Algorithm</button></a>
+          <a href="exact.html"><button>Exact Algorithm</button></a>
+        </div>
     </body>
 </html>

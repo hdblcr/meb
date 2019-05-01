@@ -8,10 +8,10 @@
 console.log("Hello World");
 // alert("Hello world alert");
 var w = window.innerWidth * 0.9,
-    h = (window.innerHeight - 200 ),
+    h = window.innerHeight - 200,
     margin = { top: 40, right: 0, bottom: 20, left: 0 };
 
-var ptSize = 4;
+var ptSize = 3;
 
 var plot = d3.select("body")
              .append("svg")
@@ -24,7 +24,7 @@ function clearScreen() {
   plot.selectAll("point").remove();
 };
 
-function drawLines(lineData, scale){
+function drawLines(lineData){
   return plot.selectAll(".line")
       .data(lineData)
       .enter()
@@ -42,7 +42,7 @@ function drawLines(lineData, scale){
       });
 }
 
-function drawPoints(points, scale) {
+function drawPoints(points) {
   return plot.selectAll(".point")
     .data(points)
     .enter()
@@ -59,12 +59,11 @@ function drawPoints(points, scale) {
     });
 }
 
-function drawCircles(circles, scale) {
+function drawCircles(circles) {
   return plot.selectAll(".circle")
     .data(circles)
     .enter()
     .append("circle")
-    // .attr("d", function(d) { return d; })
     .attr("cx", function(d) { return d.c.x; })
     .attr("cy", function(d) { return d.c.y; })
     .attr("r", function(d) { return d.r; })
@@ -86,27 +85,11 @@ function drawObject(allObjs) {
 }
 
 function draw(points, lines, circles) {
-  // scale the things
-  // var linearScaleX = d3.scale.linear()
-  //                           .data(circles)
-  //                           .domain([d3.min(function(d) { return d.c.x - d.r; }), d3.max(function(d) { return d.c.x - d.r })])
-  //                           .range(0, w);
-  // var linearScaleY= d3.scale.linear()
-  //                             .data(circles)
-  //                             .domain([d3.min(function(d) { return d.c.y - d.r; }), d3.max(function(d) { return d.c.y - d.r })])
-  //                             .range(0, h);
-  // var scale;
-  // if (linearScaleX < linearScaleY) {
-  //   scale = linearScaleX;
-  // } else {
-  //   scale = linearScaleY;
-  // }
-
   // draw the things
   clearScreen();
-  drawLines(lines, scale);
-  drawPoints(points, scale);
-  drawCircles(circles, scale);
+  drawLines(lines);
+  drawPoints(points);
+  drawCircles(circles);
 }
 
 function drawOptimal(circle) {

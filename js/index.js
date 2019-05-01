@@ -4,6 +4,33 @@
  * and open the template in the editor.
  */
 
+ var points = []
+ var centery = new Point(50, 50);
+ var edgey = new Point(750,250);
+ var pointy = new Point(500, 100);
+ var points = [centery, edgey, pointy];
+ var circley = new Circle(centery, 30);
+ var circlez = new Circle(edgey, 45);
+ circlez.deactivate();
+ var liney = new Line(centery, edgey);
+ var linez = new Line(centery, pointy);
+ linez.deactivate();
+ var circles = [circley, circlez];
+ var liness = [liney, linez];
+
+ draw(points, liness, circles);
+ d3.select("svg")
+   .on("click", function() {
+     coord = d3.mouse(this)
+     console.log(coord)
+     pt = new Point(coord[0], coord[1]);
+     for (i = 0; i < points.length; i++) {
+       points[i].deactivate();
+     }
+     points.push(pt)
+     draw(points, [], []); // draw the dot
+   });
+
 var center = new Point(50, 50);
 var circle = new Circle(center, 30);
 drawCircle(circle);
