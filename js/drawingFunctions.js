@@ -24,12 +24,11 @@ function clearScreen() {
   plot.selectAll("point").remove();
 };
 
-function drawLines(lineData){
+function drawLines(lineData, scale){
   return plot.selectAll(".line")
       .data(lineData)
       .enter()
       .append("line")
-      // .attr("d", function(d) { return d; })
       .attr("x1", function(d) { return d.start.x; })
       .attr("y1", function(d) { return d.start.y; })
       .attr("x2", function(d) { return d.end.x; })
@@ -43,12 +42,11 @@ function drawLines(lineData){
       });
 }
 
-function drawPoints(points) {
+function drawPoints(points, scale) {
   return plot.selectAll(".point")
     .data(points)
     .enter()
     .append("circle")
-    // .attr("d", function(d) { return d; })
     .attr("cx", function(d) { return d.x; })
     .attr("cy", function(d) { return d.y; })
     .attr("r", ptSize)
@@ -61,7 +59,7 @@ function drawPoints(points) {
     });
 }
 
-function drawCircles(circles) {
+function drawCircles(circles, scale) {
   return plot.selectAll(".circle")
     .data(circles)
     .enter()
@@ -73,8 +71,12 @@ function drawCircles(circles) {
     .attr("class", function(d) {
       if (d.active === 1) {
         return "activeCircle";
-      } else {
+      } else if (d.active === 0) {
         return "inactiveCircle";
+      } else if (d.active === 2) {
+        return "optimalCircle";
+      } else {
+        return "";
       }
     });
 }
@@ -84,9 +86,29 @@ function drawObject(allObjs) {
 }
 
 function draw(points, lines, circles) {
+  // scale the things
+  // var linearScaleX = d3.scale.linear()
+  //                           .data(circles)
+  //                           .domain([d3.min(function(d) { return d.c.x - d.r; }), d3.max(function(d) { return d.c.x - d.r })])
+  //                           .range(0, w);
+  // var linearScaleY= d3.scale.linear()
+  //                             .data(circles)
+  //                             .domain([d3.min(function(d) { return d.c.y - d.r; }), d3.max(function(d) { return d.c.y - d.r })])
+  //                             .range(0, h);
+  // var scale;
+  // if (linearScaleX < linearScaleY) {
+  //   scale = linearScaleX;
+  // } else {
+  //   scale = linearScaleY;
+  // }
+
   // draw the things
   clearScreen();
-  drawLines(lines);
-  drawPoints(points);
-  drawCircles(circles);
+  drawLines(lines, scale);
+  drawPoints(points, scale);
+  drawCircles(circles, scale);
+}
+
+function drawOptimal(circle) {
+  drawCircles([circle]);
 }

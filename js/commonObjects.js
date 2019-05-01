@@ -20,6 +20,10 @@ class Circle {
         this.active = 1;
         return;
     };
+    optimal() {
+      this.active = 2;
+      return;
+    }
 }
 
 class Point {
