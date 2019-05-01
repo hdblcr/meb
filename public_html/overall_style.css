@@ -41,6 +41,7 @@ svg .inactiveCircle{
 svg .optimalCircle{
   stroke: #78e08f;
   stroke-width: 3;
+  fill: none;
 }
 
 svg .activeLine{
