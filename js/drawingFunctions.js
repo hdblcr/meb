@@ -82,7 +82,7 @@ function drawCircles(circles) {
 function draw(points, lines, circles) {
   // draw the things
   clearScreen();
-  drawPoints(points);
   drawLines(lines);
+  drawPoints(points);
   drawCircles(circles);
 }
