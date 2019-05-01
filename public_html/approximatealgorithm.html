@@ -9,7 +9,7 @@ and open the template in the editor.
       <link rel="stylesheet" href="./overall_style.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      
+
         <title>Approximate Algorithm</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,18 @@ and open the template in the editor.
         <a href="exact.html"><button>I changed my mind, show me an exact algorithm.</button></a>
         <a href="index.html"><button>Take me back to the fun screen</button></a>
         <p></p>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script type="text/javascript" src="../js/drawingFunctions.js"></script>
+        <script type="application/javascript" src="../js/commonFunctions.js"></script>
+        <script type="application/javascript" src="../js/commonObjects.js"></script>
         <script type="text/javascript">
+          var svgElem = d3.select("svg");
+          svgElem.on("click", function() {
+            console.log("i've been clicked");
+            console.log(d3.mouse(this));
+            pt = new Point(d3.mouse(this));
+            addPoint(pt);
+          });
             var a = new Point(3,7);
             var b = new Point(5,4);
             var c = new Point(1,2);

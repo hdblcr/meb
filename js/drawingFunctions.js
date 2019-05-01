@@ -21,8 +21,7 @@ function clearScreen() {
   plot.selectAll(".circle").remove();
   plot.selectAll(".line").remove();
   plot.selectAll(".point").remove();
-}
-
+};
 
 function drawLines(lineData){
   return plot.selectAll(".line")
