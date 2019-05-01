@@ -9,34 +9,44 @@ and open the template in the editor.
 */
 
 svg .activePoint{
-  /* *** */
+  fill: purple;
+  stroke-width:2;
 }
 
 svg .inactivePoint{
-  /* *** */
+  fill: yellow;
 }
 
 svg .activeCircle{
-  /* *** */
+  stroke: green;
+  fill: none;
+  stroke-width: 2;
 }
 
 svg .inactiveCircle{
-  /* *** */
+  stroke: green;
+  fill: none;
+  stroke-width: 1;
+  stroke: gray;
+  stroke-dasharray: 10,3;
 }
 
 svg .activeLine{
-  /* *** */
+  stroke: blue;
+  stroke-width: 2;
+  stroke-dasharray: 10,3;
 }
 
 svg .inactiveLine{
-  /* *** */
+  stroke: gray;
+  stroke-dasharray: 10,3;
 }
 
 /* W3.CSS 4.12 November 2018 by Jan Egil and Borge Refsnes */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
 html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
-body{margin:50}
+body{margin:auto; width:800px}
 article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}
 audio,canvas,progress,video{display:inline-block}
 progress{vertical-align:baseline}

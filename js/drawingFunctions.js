@@ -8,142 +8,81 @@
 console.log("Hello World");
 // alert("Hello world alert");
 
- var w = 500;
- var h = 500;
+var w = 800;
+var h = 300;
+var ptSize = 4;
 
- var plot = new d3.select("body").append("svg");
- plot.attr("width", w)
-    .attr("fill", 'red')
-    .attr("height", h);
+var plot = d3.select("body")
+             .append("svg")
+             .attr("width", w)
+             .attr("height", h);
 
 function clearScreen() {
-  plot.selectAll("shapes").remove();
+  plot.selectAll(".circle").remove();
+  plot.selectAll(".line").remove();
+  plot.selectAll(".point").remove();
 }
 
-var drawObject;
 
-function drawCircle(d) {
-  return d3.geoCircle()
-           .center([d.c.x, d.c.y])
-           .radius(d.r);
+function drawLines(lineData){
+  return plot.selectAll(".line")
+      .data(lineData)
+      .enter()
+      .append("line")
+      // .attr("d", function(d) { return d; })
+      .attr("x1", function(d) { return d.start.x; })
+      .attr("y1", function(d) { return d.start.y; })
+      .attr("x2", function(d) { return d.end.x; })
+      .attr("y2", function(d) { return d.end.y; })
+      .attr("class", function(d) {
+        if (d.active === 1) {
+          return "activeLine";
+        } else {
+          return "inactiveLine";
+        }
+      });
 }
 
-function drawPoint(d) {
-  return d3.geoCircle()
-                .center([d.x, d.y])
-                .radius(5);
+function drawPoints(points) {
+  return plot.selectAll(".point")
+    .data(points)
+    .enter()
+    .append("circle")
+    // .attr("d", function(d) { return d; })
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; })
+    .attr("r", ptSize)
+    .attr("class", function(d) {
+      if (d.active === 1) {
+        return "activePoint";
+      } else {
+        return "inactivePoint";
+      }
+    });
 }
 
-function drawLine(d) {
-  return d3.lineTo(d.end.x, d.end.y);
+function drawCircles(circles) {
+  return plot.selectAll(".circle")
+    .data(circles)
+    .enter()
+    .append("circle")
+    // .attr("d", function(d) { return d; })
+    .attr("cx", function(d) { return d.c.x; })
+    .attr("cy", function(d) { return d.c.y; })
+    .attr("r", function(d) { return d.r; })
+    .attr("class", function(d) {
+      if (d.active === 1) {
+        return "activeCircle";
+      } else {
+        return "inactiveCircle";
+      }
+    });
 }
-drawObject = function(data) {
-  // var drawCircle;
-  var drawPoint, drawLine;
 
+function draw(points, lines, circles) {
+  // draw the things
   clearScreen();
-  //
-  // drawCircle = d3.geoCircle()
-  //                .center([d.c.x, d.c.y])
-  //                .radius(d.r);
-
-  // drawPoint = d3.geoCircle()
-  //               .center([d.x, d.y])
-  //               .radius(5);
-
-  // drawLine = d3.lineTo(d.end.x, d.end.y);
-
-  plot.selectAll("shapes")
-     .data(data)
-     .enter()
-     .append(function(d){
-       if (d.type === 'point') {
-         return "svg:path";
-       } else if (d.type === 'circle') {
-         return "svg:path";
-       } else if (d.type === 'line') {
-         return "svg:path";
-       };
-     })
-     .attr("d", function(d) {
-       if (d.type === 'point') {
-         return drawPoint(d);
-       } else if (d.type === 'circle') {
-         return drawCircle(d);
-       } else if (d.type === 'line') {
-         plot.moveTo(d.start.x, d.start.y)
-         return drawLine(d);
-       };
-     })
-     .attr("class", function(d) {
-       if (d.type === 'point') {
-         if (d.active === 1) {
-           return "activePoint";
-         } else {
-           return "inactivePoint";
-         }
-       } else if (d.type === 'circle') {
-         if (d.active === 1) {
-           return "activeCircle";
-         } else {
-           return "inactiveCircle";
-         }
-       } else if (d.type === 'line') {
-         if (d.active === 1) {
-           return "activeLine";
-         } else {
-           return "inactiveLine";
-         }
-       };
-     });
+  drawPoints(points);
+  drawLines(lines);
+  drawCircles(circles);
 }
-
-function draw(data) {
-  return drawObject(data);
-}
-
-//
-// function drawPoint(obj) {
-//     var pt = svg.append("circle");
-//     pt.attr("cx", obj.c.x)
-//           .attr("cy", obj.c.y)
-//           .attr("r", 5);
-//     if (obj.active === 1) {
-//       pt.attr("class", "activePoint");
-//     } else {
-//       pt.attr("class", "inactivePoint");
-//     }
-// // }
-//
-// function drawCircle([obj]) {
-//   dataset = [obj.c.x, obj.c.y, obj.r];
-//   var cir = svg.selectAll("circle")
-//                .data(dataset)
-//                .enter()
-//                .append("circle");
-//   cir.attr("cx", obj.c.x)
-//      .attr("cy", obj.c.y)
-//      .attr("r", obj.r);
-// }
-//
-//   function drawLine(obj) {
-//     svg.moveTo(obj.start.x, obj.start.y);
-//     var line = d3.lineTo(obj.end.x, obj.end.y);
-//     if (obj.active === 1) {
-//       line.attr("class", "activeLine");
-//     } else {
-//       line.attr("class", "inactiveLine");
-//     }
-//   }
-// //
-// // function drawLine(obj) {
-// //   var line = d3.path();
-// //   line.moveTo(obj.start.x, obj.start.y);
-// //   line.lineTo(obj.end.x, obj.end.y);
-// //   if (obj.active === 1) {
-// //     line.attr("class", "activeLine");
-// //   } else {
-// //     line.attr("class", "inactiveLine");
-// //   }
-// //   svg.append(line);
-// // }
