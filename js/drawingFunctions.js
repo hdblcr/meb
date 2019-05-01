@@ -9,7 +9,7 @@ console.log("Hello World");
 // alert("Hello world alert");
 
 var w = 800;
-var h = 300;
+var h = 800;
 var ptSize = 4;
 
 var plot = d3.select("body")
@@ -18,9 +18,9 @@ var plot = d3.select("body")
              .attr("height", h);
 
 function clearScreen() {
-  plot.selectAll(".circle").remove();
-  plot.selectAll(".line").remove();
-  plot.selectAll(".point").remove();
+  plot.selectAll("circle").remove();
+  plot.selectAll("line").remove();
+  plot.selectAll("point").remove();
 };
 
 function drawLines(lineData){
