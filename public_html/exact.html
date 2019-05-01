@@ -23,15 +23,14 @@
         <script type="text/javascript" src="../js/drawingFunctions.js"></script>
         <script type="text/javascript" src="../js/exactAlgorithm.js"></script>
         <script type="text/javascript">
+          var mebExact = new ExactMinBall([]);          
           d3.select("svg")
             .on("click", function() {
-              coord = d3.mouse(this)
-              pt = new Point(coord[0], coord[1]);
-              add_point(pt); // this is the exact alg starting point
+              pt = new Point(d3.mouse(this)[0], d3.mouse(this)[1]);
+              mebExact.add_point(pt); // this is the exact alg starting point
             });
         </script>
+        <div><button onclick="mebExact.visual_step()">Click to proceed with the algorithm</button></div>
 
-        <div><p></p></div>
-        <input id="exactNext" type="button" value="Next" onclick="drawNext();" />
     </body>
 </html>

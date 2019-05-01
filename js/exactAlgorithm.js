@@ -12,18 +12,22 @@ class ExactMinBall {
         this.solution_circle = null;
         this.boundary_points = [];
         this.step_index = 0;
+        this.points_to_draw = [];
+        this.lines_to_draw = [];
+        this.circles_to_draw = [];
    }
 
    quick_solve() {
-       for(i = 0; i < len(this.points_to_add); i++) {
+       for(i = 0; i < this.points_to_add.length; i++) {
            this.solve_next_point()
        }
+       this.solution_circle.optimal();
    }
 
    solve_next_point() {
        // remove the first point and create a variable for it
         var adding_point;
-        if(len(this.points_to_add) == 0) {
+        if(this.points_to_add.length == 0) {
             return;
         }
         else {
@@ -31,7 +35,7 @@ class ExactMinBall {
         }
         
         // if we have a small number of points
-        if(len(this.points_added) < 2) {
+        if(this.points_added.length < 2) {
             if(this.solution_circle == null) {
                 this.solution_circle = new Circle(adding_point, 0);
                 this.boundary_points = [adding_point];
@@ -77,7 +81,7 @@ class ExactMinBall {
    }
 
    check_solved() {
-       if(len(this.points_to_add) == 0) {
+       if(this.points_to_add.length == 0) {
            this.solution_flag = 1;
        }
    }
@@ -85,15 +89,19 @@ class ExactMinBall {
    add_point(point) {
        this.points_to_add.push(point);
        this.solution_flag = 0;
+       console.log(this.points_to_add);
    }
 
    clear() {
-       this.points_added = [];
-       this.points_to_add = [];
-       this.solution_circle = null;
-       this.boundary_points = [];
-       this.solution_flag = 0;
-       this.step_index = 0;
+        this.points_added = [];
+        this.points_to_add = [];
+        this.solution_circle = null;
+        this.boundary_points = [];
+        this.solution_flag = 0;
+        this.step_index = 0;
+        this.points_to_draw = [];
+        this.lines_to_draw = [];
+        this.circles_to_draw = [];
    }
 
    add_points(points) {
@@ -102,7 +110,17 @@ class ExactMinBall {
        });
     }
 
+    draw_elements(){
+        console.log("Drawing Elements");
+        console.log(this.circles_to_draw, this.lines_to_draw, this.points_to_draw);
+        draw(this.points_to_draw, this.lines_to_draw, this.circles_to_draw);
+        this.points_to_draw = [];
+        this.lines_to_draw = [];
+        this.circles_to_draw = [];
+    }
+
     visual_step() {
+        console.log("step "+ this.step_index, this.points_added, this.points_to_add);
         switch(this.step_index) {
             case 0:
                 this.show_base_circle();
@@ -126,17 +144,16 @@ class ExactMinBall {
 
     show_base_circle() {
         if(this.solution_circle != null) {
-            drawObject(this.solution_circle);
-            this.points_added.forEach(function (point) {
-                drawObject(point);
-            });
+            this.circles_to_draw.push(this.solution_circle);
+            this.points_added.forEach(this.points_to_draw.push, this);
+            this.draw_elements();
         }
         this.step_index++;
     }
 
     show_new_point() {
         var adding_point;
-        if(len(this.points_to_add) == 0) {
+        if(this.points_to_add.length == 0) {
             this.step_index = 0;
             return;
         }
@@ -144,26 +161,26 @@ class ExactMinBall {
             adding_point = this.points_to_add[0];
         }
         if(this.solution_circle == null) {
-            this.solution_circle = new Circle(adding_point, 0);
+            this.solution_circle = new Circle(adding_point, 1);
             this.boundary_points = [adding_point];
-            drawObject(adding_point);
+            this.points_added.push(adding_point);
+            this.points_to_add.shift();
             this.step_index = 0;
         }
         else { 
-            drawObject(adding_point);
-            if(len(this.points_added) == 1) {
+            this.points_to_draw.push(adding_point);
+            if(this.points_added.length == 1) {
                 this.solution_circle = circle_two_points(this.points_added[0], adding_point);
                 this.boundary_points.push(adding_point);
                 this.points_added.push(adding_point);
+                this.points_to_add.shift();
                 this.check_solved();
                 this.step_index = 0;
             }
             else {
-                drawObject(this.solution_circle);
-                this.points_added.forEach(function (point) {
-                    drawObject(point);
-                });
-                drawObject(adding_point);
+                this.circles_to_draw.push(this.solution_circle);
+                this.points_added.forEach(this.points_to_draw.push, this);
+                this.points_to_draw.push(adding_point);
                 if(distance_between_points_squared(adding_point,this.solution_circle.c) > this.solution_circle.r * this.solution_circle.r) {
                     this.boundary_points = [adding_point];
                     this.step_index++;
@@ -171,14 +188,18 @@ class ExactMinBall {
                 else {
                     this.step_index = 0;
                     this.points_added.push(adding_point);
+                    this.points_to_add.shift()
                 }
             }
         }
+        this.circles_to_draw.push(this.solution_circle);
+        this.draw_elements();
     }
+    
     
     show_cross_distance() {
         var adding_point;
-        if(len(this.points_to_add) == 0) {
+        if(this.points_to_add.length == 0) {
             this.step_index = 0;
             return;
         }
@@ -193,25 +214,27 @@ class ExactMinBall {
             var distance_tuple = find_max_distance(adding_point, this.points_added);
             var cross_point = this.points_added[distance_tuple[0]];
             var crossline = new Line(adding_point, cross_point);
-            drawObject(crossline);
+            this.lines_to_draw.push(crossline);
             this.boundary_points.push(cross_point);
+            this.step_index++;
         }
+        this.draw_elements();
     }
 
     show_potential_circle() {
         var adding_point;
         var cross_point;
-        if(len(this.points_to_add) == 0) {
+        if(this.points_to_add.length == 0) {
             this.step_index = 0;
             return;
         }
         else {
             adding_point = this.points_to_add[0];
         }
-        if(len(this.boundary_points) == 2) {
+        if(this.boundary_points.length == 2) {
             cross_point = this.boundary_points[1];
             var potential_circle = circle_two_points(adding_point, cross_point);
-            drawObject(potential_circle);
+            this.circles_to_draw.push(potential_circle);
             var distance_tuple = find_max_distance(potential_circle.c, this.points_added);
             if(distance_tuple[1] > potential_circle.r * potential_circle.r) {
                 this.step_index++;
@@ -220,49 +243,51 @@ class ExactMinBall {
             else{
                 this.step_index = 0;
                 this.points_added.push(adding_point);
+                this.points_to_add.shift();
                 this.check_solved();
             }
-            this.points_added.forEach(function (point) {
-                drawObject(point);
-            });
+            this.points_added.forEach(this.points_to_draw.push, this);
             this.solution_circle = potential_circle;
         }
+        this.draw_elements();
     }
     
     show_third_distance() {
         var third_point;
-        if(len(this.boundary_points) == 3) {
+        if(this.boundary_points.length == 3) {
             third_point = this.boundary_points[2];
-            third_line = new Line(third_point,this.solution_circle.c);
-            drawObject(third_line);
-            drawObject(solution_circle);
+            var third_line = new Line(third_point,this.solution_circle.c);
+            this.lines_to_draw.push(third_line);
+            this.circles_to_draw.push(this.solution_circle);
             this.step_index++;
         }
         else {
             this.step_index = 0;
             return;
         }
+        this.draw_elements();
     }
 
     show_final_circle() {
         var adding_point;
         var cross_point;
         var third_point;
-        if(len(boundary_points) == 3) {
+        if(this.boundary_points.length == 3) {
             adding_point = this.boundary_points[0];
             cross_point = this.boundary_points[1];
             third_point = this.boundary_points[2];
             this.solution_circle = circle_three_points(adding_point, cross_point, third_point);
             this.points_added.push(adding_point);
-            this.points_added.forEach(function (point) {
-                drawObject(point);
-            });
+            this.points_to_add.shift();
+            this.points_added.forEach(this.points_to_draw.push, this);
             this.step_index = 0;
             this.check_solved();
+            this.circles_to_draw.push(this.solution_circle);
         }
         else {
             this.step_index = 0;
             return;
         }
+        this.draw_elements();
     }
 }
