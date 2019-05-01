@@ -7,9 +7,10 @@
 
 console.log("Hello World");
 // alert("Hello world alert");
+var w = window.innerWidth * 0.9,
+    h = (window.innerHeight - 200 ),
+    margin = { top: 40, right: 0, bottom: 20, left: 0 };
 
-var w = 800;
-var h = 300;
 var ptSize = 4;
 
 var plot = d3.select("body")
@@ -18,9 +19,9 @@ var plot = d3.select("body")
              .attr("height", h);
 
 function clearScreen() {
-  plot.selectAll(".circle").remove();
-  plot.selectAll(".line").remove();
-  plot.selectAll(".point").remove();
+  plot.selectAll("circle").remove();
+  plot.selectAll("line").remove();
+  plot.selectAll("point").remove();
 };
 
 function drawLines(lineData){
@@ -76,6 +77,10 @@ function drawCircles(circles) {
         return "inactiveCircle";
       }
     });
+}
+
+function drawObject(allObjs) {
+  draw(allObjs[0], allObjs[1], allObjs[2]);
 }
 
 function draw(points, lines, circles) {
