@@ -32,17 +32,19 @@ and open the template in the editor.
         <script type="text/javascript">
           var meb = new ApproxMinBall();
           var eb = new ExactMinBall([]);
+          var allPoints = [];
           d3.select("svg")
             .on("click", function() {
               coord = d3.mouse(this)
               pt = new Point(coord[0], coord[1]);
               meb.addPoint(pt); // This is the approxAlg starting point
               meb.nextPoint();
-              eb.quiet_add_point(pt);  //shhhhhhhhhhh
+              allPoints.push(pt);
+              // eb.quiet_add_points(pt);  //shhhhhhhhhhh
             });
         </script>
         <!-- <input id="approxNext" type="button" value="Next" onclick="meb.nextPoint();" /> -->
         <input id="clear" type="button" value="Clear" onclick="meb.reset(); eb.clear(); clearScreen();" />
-        <input id="exact" type="button" value="Show Exact Solution" onclick="eb.quick_solve(); drawOptimal(eb.solution_circle);" />
+        <input id="exact" type="button" value="Show Exact Solution" onclick="eb.quiet_add_points(allPoints);eb.quick_solve(); drawOptimal(eb.solution_circle);" />
     </body>
 </html>
