@@ -32,20 +32,21 @@ and open the template in the editor.
         <script type="text/javascript">
           var approxBall = new ApproxMinBall();
           var exactBall = new ExactMinBall([]);
-          var allPoints = [];
+          // var allPoints = [];
           d3.select("svg")
             .on("click", function() {
               coord = d3.mouse(this)
               pt = new Point(coord[0], coord[1]);
               approxBall.addPoint(pt); // This is the approxAlg starting point
               approxBall.nextPoint();
-              allPoints.push(pt);
+              exactBall.quiet_add_point(pt);
+              // allPoints.push(pt);
             });
-          function clearPts () {
-            allPoints = [];
-          }
+          // function clearPts () {
+          //   allPoints = [];
+          // }
         </script>
-        <input id="clear" type="button" value="Clear" onclick="approxBall.reset(); exactBall.clear(); clearScreen(); clearPts();" />
-        <input id="exact" type="button" value="Show Exact Solution" onclick="exactBall.quiet_add_points(allPoints);exactBall.quick_solve();" />
+        <input id="clear" type="button" value="Clear" onclick="approxBall.reset(); exactBall.clear(); clearScreen();" />
+        <input id="exact" type="button" value="Show Exact Solution" onclick="exactBall.quick_solve();" />
     </body>
 </html>
