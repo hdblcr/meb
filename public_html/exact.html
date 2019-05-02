@@ -5,32 +5,30 @@
       <link rel="stylesheet" href="./overall_style.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-        <title>Exact Algorithm</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Exact Algorithm</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <h1>Exact Algorithm with Expected Linear Runtime</h1>
-        <a href="approximatealgorithm.html"><button>I changed my mind, show me approximation</button></a>
-        <a href="index.html"><button>Take me back to the fun screen</button></a>
+        <div><p>This screen shows the algorithm one step at a time, adding the next point after an intermediate solution is found.</p></div>
+        <a href="approximatealgorithm.html"><button>Show me the approximation algorithm</button></a>
+        <a href="index.html"><button>Take me back to the home screen</button></a>
         <div><p></p></div>
-
+        <div><button onclick="mebExact.visual_step()">Proceed with the algorithm</button> <button onclick="mebExact.clear(); mebExact.draw_elements()">Clear</button> <a id="explanation">Click to add points.</a></div>
+        <div><p></p></div>
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script type="text/javascript" src="../js/commonFunctions.js"></script>
         <script type="text/javascript" src="../js/commonObjects.js"></script>
         <script type="text/javascript" src="../js/drawingFunctions.js"></script>
         <script type="text/javascript" src="../js/exactAlgorithm.js"></script>
         <script type="text/javascript">
-          var mebExact = new ExactMinBall([]);          
+          var mebExact = new ExactMinBall([]);
           d3.select("svg")
             .on("click", function() {
               pt = new Point(d3.mouse(this)[0], d3.mouse(this)[1]);
               mebExact.add_point(pt); // this is the exact alg starting point
             });
         </script>
-        <div><button onclick="mebExact.visual_step()">Click to proceed with the algorithm</button></div>
-
     </body>
 </html>

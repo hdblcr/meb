@@ -154,22 +154,35 @@ class ExactMinBall {
         switch(this.step_index) {
             case 0:
                 this.show_base_circle();
+                if(this.solution_flag) {
+                    document.getElementById("explanation").innerText = "Optimal solution.";
+                }
+                else {
+                    document.getElementById("explanation").innerText = "Solution so far.";
+                }
                 break;
             case 1:
                 this.show_new_point();
+                document.getElementById("explanation").innerText = "Showing the new points.";
                 break;
             case 2:
                 this.show_cross_distance();
+                document.getElementById("explanation").innerText = "Finding the maximum distance point already added from the new point.";
                 break;
             case 3:
                 this.show_potential_circle();
+                document.getElementById("explanation").innerText = "Finding a potential new circle";
                 break;
             case 4:
                 this.show_third_distance();
+                document.getElementById("explanation").innerText = "Finding the farthest point from the center of the new circle.";
                 break;
             case 5:
                 this.show_final_circle();
+                document.getElementById("explanation").innerText = "Showing the enclosing ball.";
+                break;
         }
+        this.check_solved();
     }
 
     show_base_circle() {
@@ -200,10 +213,12 @@ class ExactMinBall {
             this.points_added.push(adding_point);
             this.points_to_add.shift();
             this.step_index = 0;
+            this.check_solved();
         }
         else { 
             this.points_to_draw.push(adding_point);
             if(this.points_added.length == 1) {
+                this.points_to_draw.push(this.points_added[0]);
                 this.solution_circle = circle_two_points(this.points_added[0], adding_point);
                 this.boundary_points.push(adding_point);
                 this.points_added.push(adding_point);
@@ -221,7 +236,8 @@ class ExactMinBall {
                 else {
                     this.step_index = 0;
                     this.points_added.push(adding_point);
-                    this.points_to_add.shift()
+                    this.points_to_add.shift();
+                    this.check_solved();
                 }
             }
         }
