@@ -11,9 +11,9 @@
     </head>
     <body>
         <h1>Exact Algorithm with Expected Linear Runtime</h1>
-        <div><p>This screen shoes the algorithm one step at a time, adding the next point after an intermediate solution is found.</p></div>
+        <div><p>This screen shows the algorithm one step at a time, adding the next point after an intermediate solution is found.</p></div>
         <a href="approximatealgorithm.html"><button>Show me the approximation algorithm</button></a>
-        <a href="index.html"><button>Take me back to the pretty screen</button></a>
+        <a href="index.html"><button>Take me back to the home screen</button></a>
         <div><p></p></div>
         <div><button onclick="mebExact.visual_step()">Proceed with the algorithm</button> <a id="explanation">Click to add points.</a></div>
         <div><p></p></div>
@@ -23,7 +23,7 @@
         <script type="text/javascript" src="../js/drawingFunctions.js"></script>
         <script type="text/javascript" src="../js/exactAlgorithm.js"></script>
         <script type="text/javascript">
-          var mebExact = new ExactMinBall([]);          
+          var mebExact = new ExactMinBall([]);
           d3.select("svg")
             .on("click", function() {
               pt = new Point(d3.mouse(this)[0], d3.mouse(this)[1]);
