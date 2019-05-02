@@ -50,7 +50,7 @@ class ExactMinBall {
         //generally check points
         else{
             // in the circle
-            if(distance_between_points_squared(this.solution_circle.c, adding_point) < this.solution_circle.r * this.solution_circle.r){
+            if(distance_between_points_squared(this.solution_circle.c, adding_point) < this.solution_circle.r * this.solution_circle.r + this.epsilon){
                 this.points_added.push(adding_point);
             }
             // out of the circle
@@ -65,6 +65,16 @@ class ExactMinBall {
                     var third_point = this.points_added[distance_tuple[0]];
                     this.solution_circle = circle_three_points(adding_point, cross_point, third_point);
                     this.boundary_points = [adding_point, cross_point, third_point];
+                    var distance_tuple = find_max_distance(this.solution_circle.c, this.points_added);
+                    if(this.solution_circle.r * this.solution_circle.r + this.epsilon < distance_tuple[1]){
+                        var mystery_point = this.points_added[distance_tuple[0]];
+                        this.solution_circle = circle_three_points(adding_point, mystery_point, third_point);
+                        this.boundary_points = [adding_point, mystery_point, third_point];
+                        if(this.solution_circle.r * this.solution_circle.r + this.epsilon < distance_between_points_squared(cross_point, this.solution_circle.c)){
+                            this.solution_circle = circle_three_points(adding_point, mystery_point, cross_point);
+                            this.boundary_points = [adding_point, cross_point, mystery_point];
+                        }
+            }
                 }
                 // the new circle covers them all
                 else {
@@ -86,6 +96,12 @@ class ExactMinBall {
            this.solution_flag = 1;
        }
    }
+
+   quiet_add_point(point) {
+    this.points_to_add.push(point);
+    this.solution_flag = 0;
+    this.points_to_add.push.apply(this.points_to_add, points);
+}
 
    add_point(point) {
        this.points_to_add.push(point);
