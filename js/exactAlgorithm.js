@@ -130,6 +130,7 @@ class ExactMinBall {
    }
 
    add_points(points) {
+       this.solution_flag = 0;
        this.points_to_add.push.apply(this.points_to_add,points);
     }
 
