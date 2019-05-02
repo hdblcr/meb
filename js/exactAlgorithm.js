@@ -97,8 +97,7 @@ class ExactMinBall {
        }
    }
 
-   quiet_add_point(point) {
-    this.points_to_add.push(point);
+   quiet_add_points(points) {
     this.solution_flag = 0;
     this.points_to_add.push.apply(this.points_to_add, points);
 }
