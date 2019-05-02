@@ -38,7 +38,7 @@ function circle_three_points(point1, point2, point3) {
 function find_max_distance(point, list) {
     var max_index = 0;
     var max_square_distance = distance_between_points_squared(point, list[0]);
-    for (index = 1, len = list.length; index < len; ++index) {
+    for (var index = 1; index < list.length; index++) {
         candidate = list[index];
         candidate_distance = distance_between_points_squared(point, candidate);
         if (candidate_distance > max_square_distance) {
