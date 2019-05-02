@@ -41,8 +41,11 @@ and open the template in the editor.
               approxBall.nextPoint();
               allPoints.push(pt);
             });
+          function clearPts () {
+            allPoints = [];
+          }
         </script>
-        <input id="clear" type="button" value="Clear" onclick="approxBall.reset(); exactBall.clear(); clearScreen(); function() { allPoints = [];};" />
-        <input id="exact" type="button" value="Show Exact Solution" onclick="exactBall.quiet_add_points(allPoints);exactBall.quick_solve(); drawOptimal(exactBall.solution_circle);" />
+        <input id="clear" type="button" value="Clear" onclick="approxBall.reset(); exactBall.clear(); clearScreen(); clearPts();" />
+        <input id="exact" type="button" value="Show Exact Solution" onclick="exactBall.quiet_add_points(allPoints);exactBall.quick_solve();" />
     </body>
 </html>
