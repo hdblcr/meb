@@ -25,6 +25,9 @@ and open the template in the editor.
         <a href="exact.html"><button>Show me an exact algorithm</button></a>
         <a href="index.html"><button>Take me back to the home screen</button></a>
         <p></p>
+        <input id="exact" type="button" value="Show Exact Solution" onclick="exactBall.quick_solve();" />
+        <input id="clear" type="button" value="Clear" onclick="approxBall.reset(); exactBall.clear(); clearScreen();" />
+        <p></p>
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script type="text/javascript" src="../js/drawingFunctions.js"></script>
         <script type="application/javascript" src="../js/commonFunctions.js"></script>
@@ -46,7 +49,5 @@ and open the template in the editor.
           //   allPoints = [];
           // }
         </script>
-        <input id="clear" type="button" value="Clear" onclick="approxBall.reset(); exactBall.clear(); clearScreen();" />
-        <input id="exact" type="button" value="Show Exact Solution" onclick="exactBall.quick_solve();" />
     </body>
 </html>
