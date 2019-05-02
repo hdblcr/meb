@@ -8,10 +8,10 @@
 console.log("Hello World");
 // alert("Hello world alert");
 var w = window.innerWidth * 0.9,
-    h = (window.innerHeight - 200 ),
+    h = window.innerHeight - 200,
     margin = { top: 40, right: 0, bottom: 20, left: 0 };
 
-var ptSize = 4;
+var ptSize = 3;
 
 var plot = d3.select("body")
              .append("svg")
@@ -29,7 +29,6 @@ function drawLines(lineData){
       .data(lineData)
       .enter()
       .append("line")
-      // .attr("d", function(d) { return d; })
       .attr("x1", function(d) { return d.start.x; })
       .attr("y1", function(d) { return d.start.y; })
       .attr("x2", function(d) { return d.end.x; })
@@ -48,7 +47,6 @@ function drawPoints(points) {
     .data(points)
     .enter()
     .append("circle")
-    // .attr("d", function(d) { return d; })
     .attr("cx", function(d) { return d.x; })
     .attr("cy", function(d) { return d.y; })
     .attr("r", ptSize)
@@ -66,15 +64,18 @@ function drawCircles(circles) {
     .data(circles)
     .enter()
     .append("circle")
-    // .attr("d", function(d) { return d; })
     .attr("cx", function(d) { return d.c.x; })
     .attr("cy", function(d) { return d.c.y; })
     .attr("r", function(d) { return d.r; })
     .attr("class", function(d) {
       if (d.active === 1) {
         return "activeCircle";
-      } else {
+      } else if (d.active === 0) {
         return "inactiveCircle";
+      } else if (d.active === 2) {
+        return "optimalCircle";
+      } else {
+        return "";
       }
     });
 }
@@ -89,4 +90,8 @@ function draw(points, lines, circles) {
   drawLines(lines);
   drawPoints(points);
   drawCircles(circles);
+}
+
+function drawOptimal(circle) {
+  drawCircles([circle]);
 }

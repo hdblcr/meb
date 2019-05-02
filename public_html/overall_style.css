@@ -38,6 +38,12 @@ svg .inactiveCircle{
   stroke-dasharray: 10,3;
 }
 
+svg .optimalCircle{
+  stroke: #78e08f;
+  stroke-width: 3;
+  fill: none;
+}
+
 svg .activeLine{
   stroke: #e58e26;
   stroke-width: 2;

@@ -35,8 +35,11 @@ and open the template in the editor.
               coord = d3.mouse(this)
               pt = new Point(coord[0], coord[1]);
               meb.addPoint(pt); // This is the approxAlg starting point
+              meb.nextPoint();
             });
         </script>
-        <input id="approxNext" type="button" value="Next" onclick="meb.nextPoint();" />
+        <!-- <input id="approxNext" type="button" value="Next" onclick="meb.nextPoint();" /> -->
+        <input id="clear" type="button" value="Clear" onclick="meb.reset(); clearScreen();" />
+
     </body>
 </html>
