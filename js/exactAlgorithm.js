@@ -182,6 +182,7 @@ class ExactMinBall {
                 document.getElementById("explanation").innerText = "Showing the enclosing ball.";
                 break;
         }
+        this.check_solved();
     }
 
     show_base_circle() {
@@ -212,6 +213,7 @@ class ExactMinBall {
             this.points_added.push(adding_point);
             this.points_to_add.shift();
             this.step_index = 0;
+            this.check_solved();
         }
         else { 
             this.points_to_draw.push(adding_point);
@@ -234,7 +236,8 @@ class ExactMinBall {
                 else {
                     this.step_index = 0;
                     this.points_added.push(adding_point);
-                    this.points_to_add.shift()
+                    this.points_to_add.shift();
+                    this.check_solved();
                 }
             }
         }
