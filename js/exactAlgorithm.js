@@ -74,7 +74,7 @@ class ExactMinBall {
                             this.solution_circle = circle_three_points(adding_point, mystery_point, cross_point);
                             this.boundary_points = [adding_point, cross_point, mystery_point];
                         }
-            }
+                    }
                 }
                 // the new circle covers them all
                 else {
