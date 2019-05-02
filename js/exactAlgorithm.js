@@ -23,6 +23,7 @@ class ExactMinBall {
            this.solve_next_point()
        }
        this.solution_circle.optimal();
+       drawOptimal(this.solution_circle);
    }
 
    solve_next_point() {
