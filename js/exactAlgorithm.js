@@ -19,7 +19,7 @@ class ExactMinBall {
    }
 
    quick_solve() {
-       for(var i = 0; i < this.points_to_add.length; i++) {
+       for(var i = 0, len = this.points_to_add.length; i < len; i++) {
            this.solve_next_point()
        }
        this.solution_circle.optimal();
@@ -115,7 +115,7 @@ class ExactMinBall {
    }
 
    add_points(points) {
-       this.points_to_add.push.apply(this.points.points_to_add,points);
+       this.points_to_add.push.apply(this.points_to_add,points);
     }
 
     draw_elements(){
@@ -301,10 +301,10 @@ class ExactMinBall {
                 var mystery_point = this.points_added[distance_tuple[0]];
                 this.solution_circle = circle_three_points(adding_point, mystery_point, third_point);
                 this.boundary_points = [adding_point, mystery_point, third_point];
-                // if(this.solution_circle.r * this.solution_circle.r + this.epsilon < distance_between_points_squared(cross_point, this.solution_circle.c)){
-                //     this.solution_circle = circle_three_points(adding_point, mystery_point, cross_point);
-                //     this.boundary_points = [adding_point, cross_point, mystery_point];
-                // }
+                if(this.solution_circle.r * this.solution_circle.r + this.epsilon < distance_between_points_squared(cross_point, this.solution_circle.c)){
+                    this.solution_circle = circle_three_points(adding_point, mystery_point, cross_point);
+                    this.boundary_points = [adding_point, cross_point, mystery_point];
+                }
             }
             this.points_added.push(adding_point);
             this.points_to_add.shift();
